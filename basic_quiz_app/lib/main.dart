@@ -7,7 +7,12 @@ import 'package:flutter/material.dart';
 
 void main() => runApp(MyApp());
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -15,7 +20,12 @@ class MyApp extends StatelessWidget {
         appBar: AppBar(
           title: Text("TOPIK"),
         ),
-        body: Text("aplikasi pertama"),
+        body: Column(
+          children: [
+            Text('Pertanyaan'),
+            ElevatedButton(onPressed: null, child: Text('Jawaban1')),
+          ],
+        ),
       ),
     );
   }
