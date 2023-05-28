@@ -34,6 +34,11 @@ class _MyAppState extends State<MyApp> {
     setState(() {
       _soalindex += 1;
     });
+    if (_soalindex < pertanyaan.length) {
+      print('Masi ada soal lagi !');
+    } else {
+      print('Sudah selesai tidak ada lagi !!');
+    }
     print(_soalindex);
   }
 
@@ -44,15 +49,19 @@ class _MyAppState extends State<MyApp> {
         appBar: AppBar(
           title: Text("Aplikasi Kuis"),
         ),
-        body: Column(
-          children: [
-            Pertanyaan(pertanyaan[_soalindex]['pertanyaan']),
-            ...(pertanyaan[_soalindex]['jawaban'] as List<String>)
-                .map((jawabanText) {
-              return Jawaban(_jawaban, jawabanText);
-            }).toList(),
-          ],
-        ),
+        body: _soalindex < pertanyaan.length
+            ? Column(
+                children: [
+                  Pertanyaan(pertanyaan[_soalindex]['pertanyaan']),
+                  ...(pertanyaan[_soalindex]['jawaban'] as List<String>)
+                      .map((jawabanText) {
+                    return Jawaban(_jawaban, jawabanText);
+                  }).toList(),
+                ],
+              )
+            : Center(
+                child: Text("Berhasil selesai kuisnya ok !!!"),
+              ),
       ),
     );
   }
