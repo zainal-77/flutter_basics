@@ -1,6 +1,7 @@
 // ignore: unused_import
 import 'package:flutter/material.dart';
 import './pertanyaan.dart';
+import './jawaban.dart';
 // void main() {
 //   runApp(MyApp());
 // }
@@ -14,21 +15,30 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   var _soalindex = 0;
+  var pertanyaan = [
+    {
+      'pertanyaan': "Tempat apa yang anda akan kunjungi?",
+      'jawaban': ['Pengunungan', 'Pantai', 'Mall', 'Hutan'],
+    },
+    {
+      'pertanyaan': "Warna apa yang anda sukai?",
+      'jawaban': ['Merahn', 'Hijau', 'Putih', 'Hijau'],
+    },
+    {
+      'pertanyaan': "Hobby?",
+      'jawaban': ['Renang', 'vasket', 'voli', 'chess'],
+    },
+  ];
+
+  void _jawaban() {
+    setState(() {
+      _soalindex += 1;
+    });
+    print(_soalindex);
+  }
 
   @override
   Widget build(BuildContext context) {
-    var pertanyaan = [
-      'Apa?',
-      'bgmn?',
-    ];
-
-    void _jawaban() {
-      setState(() {
-        _soalindex += 1;
-      });
-      print(_soalindex);
-    }
-
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
@@ -36,10 +46,11 @@ class _MyAppState extends State<MyApp> {
         ),
         body: Column(
           children: [
-            Text(pertanyaan[_soalindex]),
-            ElevatedButton(onPressed: _jawaban, child: Text('Jawaban1')),
-            ElevatedButton(onPressed: _jawaban, child: Text('Jawaban2')),
-            ElevatedButton(onPressed: _jawaban, child: Text('Jawaban3')),
+            Pertanyaan(pertanyaan[_soalindex]['pertanyaan']),
+            ...(pertanyaan[_soalindex]['jawaban'] as List<String>)
+                .map((jawabanText) {
+              return Jawaban(_jawaban, jawabanText);
+            }).toList(),
           ],
         ),
       ),
